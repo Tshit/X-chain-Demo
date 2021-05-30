@@ -17,7 +17,7 @@ type ProofOfWork struct {
 	target *big.int
 }
 
-fun NewProofOfWork(block *Block) *ProofOfWork {
+func NewProofOfWork(block *Block) *ProofOfWork {
 	
 	target := big.NewInt(1)
 	fmt.Println("---------------------")
