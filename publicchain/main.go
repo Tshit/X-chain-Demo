@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"publicchain/part1/BLC"
+	"publicchain/BLC"
 	"time"
 )
 
@@ -10,11 +10,11 @@ func main() {
 
 	blockchain := BLC.NewBlockchain()
 
-	blockchain.AddBlock("Send 20 BTC To HaoLin From Liyuechun")
+	blockchain.AddBlock("Send 20 BTC To Ben From Admin")
 
-	blockchain.AddBlock("Send 10 BTC To SaoLin From Liyuechun")
+	blockchain.AddBlock("Send 10 BTC To Sam From Admin")
 
-	blockchain.AddBlock("Send 30 BTC To HaoTian From Liyuechun")
+	blockchain.AddBlock("Send 30 BTC To Alice From Admin")
 
 	for _, block := range blockchain.Blocks {
 
