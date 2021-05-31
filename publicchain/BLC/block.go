@@ -23,7 +23,7 @@ func (block Block) SetHash() {
 	block.Hash = hash[:]
 }
 
-func NewBlock(data string, prevlockHash []byte) *Block {
+func NewBlock(data string, prevBlockHash []byte) *Block {
 	block := &Block{time.Now().Unix(), prevBlockHash, []byte(data), []byte{}, 0}
 	pow := NewProofOfWork(block)
 	nonce, hash := pow.Run()
