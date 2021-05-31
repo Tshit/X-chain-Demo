@@ -1,11 +1,11 @@
 package BLC
 
 import (
-	"math/big"
-	"fmt"
 	"bytes"
-	"math"
 	"crypto/sha256"
+	"fmt"
+	"math"
+	"math/big"
 )
 
 var (
@@ -13,19 +13,19 @@ var (
 )
 
 type ProofOfWork struct {
-	block *Block
+	block  *Block
 	target *big.Int
 }
 
 func NewProofOfWork(block *Block) *ProofOfWork {
-	
+
 	target := big.NewInt(1)
 	fmt.Println("---------------------")
 	target.Lsh(target, uint(256-targetBits))
 	fmt.Println(target)
-	pow := &ProofOfWork{block,target}
+	pow := &ProofOfWork{block, target}
 	return pow
-} 
+}
 
 func (pow *ProofOfWork) prepareData(nonce int) []byte {
 	data := bytes.Join(
@@ -42,6 +42,23 @@ func (pow *ProofOfWork) prepareData(nonce int) []byte {
 	return data
 }
 
-func (pow *ProofOfWork ) Run() (int, []byte) {
-	bytes := 
+func (pow *ProofOfWork) Run() (int, []byte) {
+	var hashInt big.Int
+	var hash [32]byte
+	nonce := 0
+	fmt.Printf("Mining the block containing \"%s\"\n", pow.block.Data)
+	for nonce < maxNonce {
+		data := pow.prepareData(nonce)
+
+		hash = sha256.Sum256(data)
+		fmt.Printf("\r%x", hash)
+		hashInt.SetBytes(hash[:])
+		if hashInt.Cmp(pow.target) == -1 {
+			break
+		} else {
+			nonce++
+		}
+	}
+	fmt.Println("\n\n")
+	return nonce, hash[:]
 }
