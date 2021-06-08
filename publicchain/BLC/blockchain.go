@@ -23,7 +23,10 @@ func (blockchain *Blockchain) AddBlock(data string) {
 func NewBlockchain() *Blockchain {
 	//get the hash value of thr last block 
 	var tip []byte 
-
+	db, err := bolt.Open(dbFile, 0600, nil)
+	if err != nil {
+		log.Panic(err)
+	}
 	//open or create DB
 	//create table if not exists
 	err = db.Update(func(tx *bolt.Tx) error {
